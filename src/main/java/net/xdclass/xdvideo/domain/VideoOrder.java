@@ -2,6 +2,7 @@ package net.xdclass.xdvideo.domain;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 视频订单实体类
@@ -24,6 +25,26 @@ public class VideoOrder implements Serializable {
   private String ip;
   private Integer del;
 
+  public VideoOrder() {
+  }
+
+  public VideoOrder(Integer id, String openid, String outTradeNo, Integer state, Date createTime, Date notifyTime, Integer totalFee, String nickname, String headImg, Integer videoId, String videoTitle, String videoImg, Integer userId, String ip, Integer del) {
+    this.id = id;
+    this.openid = openid;
+    this.outTradeNo = outTradeNo;
+    this.state = state;
+    this.createTime = createTime;
+    this.notifyTime = notifyTime;
+    this.totalFee = totalFee;
+    this.nickname = nickname;
+    this.headImg = headImg;
+    this.videoId = videoId;
+    this.videoTitle = videoTitle;
+    this.videoImg = videoImg;
+    this.userId = userId;
+    this.ip = ip;
+    this.del = del;
+  }
 
   public Integer getId() {
     return id;

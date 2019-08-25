@@ -1,6 +1,7 @@
 package net.xdclass.xdvideo.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 评论实体类
@@ -18,6 +19,21 @@ public class Comment implements Serializable {
   private Integer orderId;
   private Integer videoId;
 
+  public Comment() {
+  }
+
+  public Comment(Integer id, String content, Integer userId, String headImg, String name, double point, Integer up, Date createTime, Integer orderId, Integer videoId) {
+    this.id = id;
+    this.content = content;
+    this.userId = userId;
+    this.headImg = headImg;
+    this.name = name;
+    this.point = point;
+    this.up = up;
+    this.createTime = createTime;
+    this.orderId = orderId;
+    this.videoId = videoId;
+  }
 
   public Integer getId() {
     return id;

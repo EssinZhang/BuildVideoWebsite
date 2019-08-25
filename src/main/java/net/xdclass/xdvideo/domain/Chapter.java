@@ -2,6 +2,7 @@ package net.xdclass.xdvideo.domain;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 视频章节实体类
@@ -14,6 +15,16 @@ public class Chapter implements Serializable {
   private Integer ordered;
   private java.util.Date createTime;
 
+  public Chapter() {
+  }
+
+  public Chapter(Integer id, Integer videoId, String title, Integer ordered, Date createTime) {
+    this.id = id;
+    this.videoId = videoId;
+    this.title = title;
+    this.ordered = ordered;
+    this.createTime = createTime;
+  }
 
   public Integer getId() {
     return id;

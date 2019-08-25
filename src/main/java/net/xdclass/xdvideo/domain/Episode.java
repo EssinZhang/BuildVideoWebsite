@@ -2,6 +2,7 @@ package net.xdclass.xdvideo.domain;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 每一小节对应的视频信息实体类
@@ -18,6 +19,20 @@ public class Episode implements Serializable {
   private java.util.Date createTime;
   private Integer chapterId;
 
+  public Episode() {
+  }
+
+  public Episode(Integer id, String title, Integer num, String duration, String coverImg, Integer videoId, String summary, Date createTime, Integer chapterId) {
+    this.id = id;
+    this.title = title;
+    this.num = num;
+    this.duration = duration;
+    this.coverImg = coverImg;
+    this.videoId = videoId;
+    this.summary = summary;
+    this.createTime = createTime;
+    this.chapterId = chapterId;
+  }
 
   public Integer getId() {
     return id;

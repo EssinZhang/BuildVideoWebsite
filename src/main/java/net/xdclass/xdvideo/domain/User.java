@@ -2,6 +2,7 @@ package net.xdclass.xdvideo.domain;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户实体类
@@ -18,6 +19,20 @@ public class User implements Serializable {
   private String city;
   private java.util.Date createTime;
 
+  public User() {
+  }
+
+  public User(Integer id, String openid, String name, String headImg, String phone, String sign, Integer sex, String city, Date createTime) {
+    this.id = id;
+    this.openid = openid;
+    this.name = name;
+    this.headImg = headImg;
+    this.phone = phone;
+    this.sign = sign;
+    this.sex = sex;
+    this.city = city;
+    this.createTime = createTime;
+  }
 
   public Integer getId() {
     return id;

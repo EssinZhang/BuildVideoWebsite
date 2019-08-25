@@ -2,6 +2,7 @@ package net.xdclass.xdvideo.domain;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 视频实体类
@@ -16,8 +17,22 @@ public class Video implements Serializable {
   private Integer price;
   private java.util.Date createTime;
   private Integer online;
-  private double point;
+  private Double point;
 
+  public Video() {
+  }
+
+  public Video(Integer id, String title, String summary, String coverImg, Integer viewNum, Integer price, Date createTime, Integer online, double point) {
+    this.id = id;
+    this.title = title;
+    this.summary = summary;
+    this.coverImg = coverImg;
+    this.viewNum = viewNum;
+    this.price = price;
+    this.createTime = createTime;
+    this.online = online;
+    this.point = point;
+  }
 
   public Integer getId() {
     return id;
@@ -91,11 +106,11 @@ public class Video implements Serializable {
   }
 
 
-  public double getPoint() {
+  public Double getPoint() {
     return point;
   }
 
-  public void setPoint(double point) {
+  public void setPoint(Double point) {
     this.point = point;
   }
 
