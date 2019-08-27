@@ -46,7 +46,7 @@ public class JwtUtils {
      * @param token
      * @return
      */
-    public static Claims checkJWt(String token){
+    public static Claims checkJWT(String token){
 
         try {
             final Claims claims = Jwts.parser().setSigningKey(APPSECRET)

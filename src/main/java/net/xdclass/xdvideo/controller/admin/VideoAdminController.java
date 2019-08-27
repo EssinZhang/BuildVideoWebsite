@@ -29,7 +29,7 @@ public class VideoAdminController {
      * @return
      */
     @PutMapping("updateVideo")
-    public int update(@RequestBody Video video){
+    public Object update(@RequestBody Video video){
 
         return videoService.update(video);
     }
@@ -40,7 +40,7 @@ public class VideoAdminController {
      * @return
      */
     @PostMapping("insertVideo")
-    public int insertVideo(@RequestBody Video video){
+    public Object insertVideo(@RequestBody Video video){
 
         return videoService.save(video);
     }

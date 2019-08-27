@@ -3,12 +3,13 @@ package net.xdclass.xdvideo.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.xdclass.xdvideo.domain.Video;
-import net.xdclass.xdvideo.mapper.VideoMapper;
 import net.xdclass.xdvideo.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * video接口
@@ -33,8 +34,13 @@ public class VideoController {
 
         List<Video> videoList = videoService.findAll();
         PageInfo<Video> pageInfo = new PageInfo<>(videoList);
+        Map<String,Object> data = new HashMap<>();
+        data.put("total_size",pageInfo.getTotal());//总条数
+        data.put("total_page",pageInfo.getPages());//总页数
+        data.put("current_page",page);//当前页
+        data.put("data",pageInfo.getList());//数据
 
-        return pageInfo;
+        return data;
     }
 
     /**
