@@ -3,7 +3,7 @@ package net.xdclass.xdvideo.utils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 常用工具类的封装
@@ -39,5 +39,21 @@ public class CommonUtils {
         }
 
         return null;
+    }
+
+    public static SortedMap<String,String> getSortedMap(Map<String,String> map){
+        SortedMap<String,String> sortedMap = new TreeMap<>();
+        Iterator<String> iterator = map.keySet().iterator();
+        while (iterator.hasNext()){
+            String key = iterator.next();
+            String value = map.get(key);
+            String temp = "";
+            if (value != null){
+                temp = value.trim();
+            }
+            sortedMap.put(key,temp);
+        }
+
+        return sortedMap;
     }
 }

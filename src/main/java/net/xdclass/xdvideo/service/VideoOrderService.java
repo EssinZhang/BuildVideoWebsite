@@ -22,11 +22,21 @@ public interface VideoOrderService {
 
     VideoOrder findOrderById(int id);
 
-    VideoOrder findOrderByOutTradeNo(int id);
+    /**
+     * 根据流水号查找订单
+     * @param id
+     * @return
+     */
+    VideoOrder findOrderByOutTradeNo(String id);
 
     int delOrder(int id,int userId);
 
     List<VideoOrder> findMyOrderList(int userId);
 
+    /**
+     * 根据流水号更新订单状态
+     * @param videoOrder
+     * @return
+     */
     int updateVideoOrderByOutTradeNo(VideoOrder videoOrder);
 }

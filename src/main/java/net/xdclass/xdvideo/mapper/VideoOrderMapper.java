@@ -30,7 +30,7 @@ public interface VideoOrderMapper {
      * @return
      */
     @Select("select * from video_order where out_trade_no=#{out_trade_no} and del=0")
-    VideoOrder findOrderByOutTradeNo(@Param("out_trade_no") int id);
+    VideoOrder findOrderByOutTradeNo(@Param("out_trade_no") String id);
 
     /**
      * 根据主键id和用户id 进行逻辑删除订单   （将del字段设置为1）
@@ -54,7 +54,7 @@ public interface VideoOrderMapper {
      * @param videoOrder
      * @return
      */
-    @Update("update video_order set state=#{state}, notify_time=#{notify_time}, openid=#{openid}" +
+    @Update("update video_order set state=#{state}, notify_time=#{notifyTime}, openid=#{openid}" +
             "where out_trade_no=#{outTradeNo} and state=0 and del=0")
     int updateVideoOrderByOutTradeNo(VideoOrder videoOrder);
 

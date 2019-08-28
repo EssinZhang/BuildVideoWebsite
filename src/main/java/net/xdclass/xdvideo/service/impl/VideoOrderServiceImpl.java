@@ -14,6 +14,8 @@ import net.xdclass.xdvideo.utils.HttpUtils;
 import net.xdclass.xdvideo.utils.WeChatPayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -33,6 +35,7 @@ public class VideoOrderServiceImpl implements VideoOrderService {
     private UserMapper userMapper;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)//开启事务
     public String save(VideoOrderDto videoOrderDto) throws Exception {
 
         //查找视频信息
@@ -118,9 +121,14 @@ public class VideoOrderServiceImpl implements VideoOrderService {
         return null;
     }
 
+    /**
+     * 根据流水号查找订单
+     * @param id
+     * @return
+     */
     @Override
-    public VideoOrder findOrderByOutTradeNo(int id) {
-        return null;
+    public VideoOrder findOrderByOutTradeNo(String id) {
+        return videoOrderMapper.findOrderByOutTradeNo(id);
     }
 
     @Override
@@ -133,8 +141,14 @@ public class VideoOrderServiceImpl implements VideoOrderService {
         return null;
     }
 
+    /**
+     * 根据流水号更新订单状态
+     * @param videoOrder
+     * @return
+     */
     @Override
     public int updateVideoOrderByOutTradeNo(VideoOrder videoOrder) {
-        return 0;
+
+        return videoOrderMapper.updateVideoOrderByOutTradeNo(videoOrder);
     }
 }
