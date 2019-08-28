@@ -10,14 +10,12 @@ import net.xdclass.xdvideo.mapper.VideoMapper;
 import net.xdclass.xdvideo.mapper.VideoOrderMapper;
 import net.xdclass.xdvideo.service.VideoOrderService;
 import net.xdclass.xdvideo.utils.CommonUtils;
+import net.xdclass.xdvideo.utils.HttpUtils;
 import net.xdclass.xdvideo.utils.WeChatPayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 @Service
 public class VideoOrderServiceImpl implements VideoOrderService {
@@ -35,7 +33,7 @@ public class VideoOrderServiceImpl implements VideoOrderService {
     private UserMapper userMapper;
 
     @Override
-    public VideoOrder save(VideoOrderDto videoOrderDto) {
+    public String save(VideoOrderDto videoOrderDto) throws Exception {
 
         //查找视频信息
         Video video = videoMapper.findById(videoOrderDto.getVideoId());
@@ -61,19 +59,19 @@ public class VideoOrderServiceImpl implements VideoOrderService {
         videoOrder.setOutTradeNo(CommonUtils.generateUUID());
         videoOrderMapper.insertVideoOrder(videoOrder);
 
-        //生成签名
-        unifiedOrder(videoOrder);
+        //生成签名并获取code_url
+        String unifiedOrder = unifiedOrder(videoOrder);
 
-        //
-
-        return null;
+        return unifiedOrder;
     }
 
     /**
      * 统一下单方法
+     *
+     * 生成签名并获取code_url
      * @return
      */
-    private String unifiedOrder(VideoOrder videoOrder){
+    private String unifiedOrder(VideoOrder videoOrder) throws Exception {
         //生成签名
         SortedMap<String,String> params = new TreeMap<>();
         params.put("appid",weChatConfig.getAppId());
@@ -92,12 +90,20 @@ public class VideoOrderServiceImpl implements VideoOrderService {
 
         //map转xml
         String payXml = null;
-        try {
-            payXml = WeChatPayUtils.mapToXml(params);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        payXml = WeChatPayUtils.mapToXml(params);
         System.out.println(payXml);
+
+        //统一下单
+        String orderStr = HttpUtils.doPost(WeChatConfig.getUnifiedOrderUrl(), payXml, 4000);
+        if (orderStr == null){
+            return null;
+        }
+        Map<String,String> unifiedOrderMap = WeChatPayUtils.xmlToMap(orderStr);
+        System.out.println(unifiedOrderMap.toString());
+        if (unifiedOrderMap != null){
+            return unifiedOrderMap.get("code_url");
+        }
+
 
         return "";
     }

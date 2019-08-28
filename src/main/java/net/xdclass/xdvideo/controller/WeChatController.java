@@ -5,6 +5,7 @@ import net.xdclass.xdvideo.domain.JsonData;
 import net.xdclass.xdvideo.domain.User;
 import net.xdclass.xdvideo.service.UserService;
 import net.xdclass.xdvideo.utils.JwtUtils;
+import net.xdclass.xdvideo.utils.WeChatPayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api/v1/wechat")
@@ -23,6 +25,9 @@ public class WeChatController {
 
     @Autowired
     private WeChatConfig weChatConfig;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 拼装扫一扫登录url
@@ -40,9 +45,6 @@ public class WeChatController {
         return JsonData.buildSuccess(qrcodeUrl);
     }
 
-    @Autowired
-    private UserService userService;
-
     @GetMapping("/user/callback")
     public void weChatUserLoginCallBack(@RequestParam(value = "code",required = true) String code, String state, HttpServletResponse response) throws IOException {
 
@@ -54,6 +56,28 @@ public class WeChatController {
             response.sendRedirect(state+"?token="+webToken+"&head_img="+user.getHeadImg()+"&name="+URLEncoder.encode(user.getName(),"UTF-8"));
 
         }
+
+    }
+
+    /**
+     * 微信支付回调
+     */
+    @RequestMapping ("/order/callback")
+    public void weChatOrderCallBack(HttpServletRequest request,HttpServletResponse response) throws Exception {
+
+        InputStream inputStream = request.getInputStream();
+        //BufferedReader是包装设计模式，性能更高
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        StringBuffer stringBuffer = new StringBuffer();
+        String line;
+        while ( (line = bufferedReader.readLine()) != null){
+            stringBuffer.append(line);
+        }
+        bufferedReader.close();
+        inputStream.close();
+        Map<String,String> callBackMap = WeChatPayUtils.xmlToMap(stringBuffer.toString());
+        System.out.println(callBackMap.toString());
+
 
     }
 
