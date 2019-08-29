@@ -12,9 +12,15 @@ public class VideoOrder implements Serializable {
   private Integer id;
   private String openid;
   private String outTradeNo;
+  /**
+   * 0表示未支付，1表示已经支付
+   */
   private Integer state;
   private java.util.Date createTime;
   private java.util.Date notifyTime;
+  /**
+   *分为单位
+   */
   private Integer totalFee;
   private String nickname;
   private String headImg;

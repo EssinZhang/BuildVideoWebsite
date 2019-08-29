@@ -8,4 +8,6 @@ import net.xdclass.xdvideo.domain.User;
 public interface UserService {
 
     User saveWeChatUser(String code);
+
+    User findUserById(int id);
 }

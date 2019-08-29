@@ -12,11 +12,14 @@ import net.xdclass.xdvideo.domain.VideoOrder;
 import net.xdclass.xdvideo.dto.VideoOrderDto;
 import net.xdclass.xdvideo.service.VideoOrderService;
 import net.xdclass.xdvideo.utils.IpUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,19 +36,24 @@ import java.util.Map;
 @RequestMapping("/api/v1/order")
 public class OrderController {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private Logger dataLogger = LoggerFactory.getLogger("dataLogger");
+
     @Autowired
     private VideoOrderService videoOrderService;
 
     @GetMapping("add")
     public JsonData saveOrder(@RequestParam(value = "video_id",required = true) int video_id,
+                              @RequestParam(value = "user_id",required = true) int user_id,
                               HttpServletRequest request,
                               HttpServletResponse response) throws Exception {
 
         String ip = IpUtils.getIpAddr(request);
-        //int userid = request.getAttribute("user_id");
-        int userId = 1;
+        //int userId = (Integer) request.getAttribute("user_id");
+        //int userId = 3;
         VideoOrderDto videoOrderDto = new VideoOrderDto();
-        videoOrderDto.setUserId(userId);
+        videoOrderDto.setUserId(user_id);
         videoOrderDto.setVideoId(video_id);
         videoOrderDto.setIp(ip);
 

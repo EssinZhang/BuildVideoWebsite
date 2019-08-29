@@ -53,6 +53,14 @@ public class WeChatController {
         return JsonData.buildSuccess(qrcodeUrl);
     }
 
+
+    /**
+     * 微信扫码登录，回调地址
+     * @param code
+     * @param state
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/user/callback")
     public void weChatUserLoginCallBack(@RequestParam(value = "code",required = true) String code, String state, HttpServletResponse response) throws IOException {
 
