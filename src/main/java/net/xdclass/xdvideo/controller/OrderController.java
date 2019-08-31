@@ -8,7 +8,6 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import net.xdclass.xdvideo.domain.JsonData;
-import net.xdclass.xdvideo.domain.VideoOrder;
 import net.xdclass.xdvideo.dto.VideoOrderDto;
 import net.xdclass.xdvideo.service.VideoOrderService;
 import net.xdclass.xdvideo.utils.IpUtils;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

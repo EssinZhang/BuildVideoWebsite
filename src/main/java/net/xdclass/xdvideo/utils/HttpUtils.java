@@ -45,7 +45,7 @@ public class HttpUtils {
             if (httpResponse.getStatusLine().getStatusCode() == 200){
 
                 String jsonResult = EntityUtils.toString(httpResponse.getEntity());
-                HashMap map1 = gson.fromJson(jsonResult, map.getClass());
+                map = gson.fromJson(jsonResult, map.getClass());
 
             }
         }catch (Exception e){
@@ -80,8 +80,9 @@ public class HttpUtils {
 
         HttpPost httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
-        httpPost.addHeader("Content-Type","application/utf-8");
-        if (data != null && data instanceof String){
+        httpPost.addHeader("Content-Type","text/html; chartset=UTF-8");
+
+        if(data != null && data instanceof  String){ //使用字符串传参
             StringEntity stringEntity = new StringEntity(data,"UTF-8");
             httpPost.setEntity(stringEntity);
         }
