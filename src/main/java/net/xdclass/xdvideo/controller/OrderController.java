@@ -82,4 +82,11 @@ public class OrderController {
 
         return JsonData.buildSuccess("下单成功");
     }
+
+    @GetMapping("myOrderList")
+    public Object findOrderListByUserId(@RequestParam(value = "user_id",required = true) Integer userId){
+        Map<String,Object> data = new HashMap<>();
+        data.put("data",videoOrderService.findMyOrderList(userId));
+        return data;
+    }
 }

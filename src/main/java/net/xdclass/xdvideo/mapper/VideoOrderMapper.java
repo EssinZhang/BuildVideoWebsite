@@ -46,7 +46,7 @@ public interface VideoOrderMapper {
      * @param userId
      * @return
      */
-    @Select("select * from video_order where user_id=#{user_id}")
+    @Select("select out_trade_no,state,create_time,notify_time,total_fee,nickname,video_id,video_title,del from video_order where user_id=#{user_id} order by create_time desc")
     List<VideoOrder> findMyOrderList(@Param("user_id") int userId);
 
     /**

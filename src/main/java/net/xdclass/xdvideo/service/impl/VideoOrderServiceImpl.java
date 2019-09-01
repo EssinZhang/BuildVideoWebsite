@@ -147,7 +147,7 @@ public class VideoOrderServiceImpl implements VideoOrderService {
 
     @Override
     public List<VideoOrder> findMyOrderList(int userId) {
-        return null;
+        return videoOrderMapper.findMyOrderList(userId);
     }
 
     /**
