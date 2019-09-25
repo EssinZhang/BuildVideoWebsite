@@ -145,6 +145,11 @@ public class VideoOrderServiceImpl implements VideoOrderService {
         return 0;
     }
 
+    /**
+     * 根据用户id查该用户所有订单
+     * @param userId
+     * @return
+     */
     @Override
     public List<VideoOrder> findMyOrderList(int userId) {
         return videoOrderMapper.findMyOrderList(userId);
