@@ -12,7 +12,7 @@ function save_order(videoId) {
     var url = host + "/api/v1/order/add?token="+token+"&video_id="+videoId+"&user_id="+user.id;
     $('#myModalLabel').text("订单有效时间10分钟");
     //document.getElementById('list1').style.display="none";
-    $("#list1").hide();
+    $("#orderRow").hide();//关列表
     $("#pay_img").attr("src",url);
     $("#pay_img").show();
     //window.location.href=global_login_url;
@@ -42,6 +42,7 @@ function test_login() {
 function my_order_list(){
 	
 	$('#myModalLabel').text("我的订单列表");
+	$("#orderRow").show();//开列表
 	$("#pay_img").hide();
 	$("#orderRow").empty();
 	
@@ -55,7 +56,7 @@ function my_order_list(){
                 var state = "";
                 var orderDte = "";
                 
-                var tableHead = "<table class='table table-condensed'>"+
+                var tableHead = "<table id='list' class='table table-condensed'>"+
                 				"<tr>"
        								+"<td>视频</td>"
        								+"<td>单价</td>"
